@@ -1,0 +1,13 @@
+version: '3'
+name: api-mit-auth-nest
+services:
+  redis:
+    image: redis
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
