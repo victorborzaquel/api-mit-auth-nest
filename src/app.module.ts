@@ -8,7 +8,7 @@ import { DataSource } from 'typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { User } from './modules/users/entities/user.entity';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
-import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { MulterModule } from '@nestjs/platform-express';
 import { HttpModule } from '@nestjs/axios';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -18,6 +18,7 @@ import { RolesGuard } from './guards/roles/roles.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { CaslModule } from './modules/casl/casl.module';
 import { ArticlesModule } from './modules/articles/articles.module';
+import { HttpExceptionFilter } from './filters/http-exception/http-exception.filter';
 
 @Module({
   imports: [
@@ -99,6 +100,10 @@ import { ArticlesModule } from './modules/articles/articles.module';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
     },
   ],
 })

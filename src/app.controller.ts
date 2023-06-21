@@ -9,6 +9,7 @@ import {
   Req,
   Res,
   UploadedFile,
+  UseFilters,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -30,7 +31,9 @@ import { Action } from './enums/action.enum';
 import { Article } from './modules/articles/entities/article.entity';
 import { PoliciesGuard } from './guards/policies/policies.guard';
 import { ReadArticlePolicyHandler } from './handlers/read-article-policy.handler';
+import { HttpExceptionFilter } from './filters/http-exception/http-exception.filter';
 
+@UseFilters(HttpExceptionFilter)
 @Controller()
 export class AppController {
   constructor(
@@ -40,6 +43,7 @@ export class AppController {
 
   private readonly logger = new Logger(UsersService.name);
 
+  @UseFilters(new HttpExceptionFilter())
   @Get()
   getHello() {
     return this.appService.getDatabaseConfig();
