@@ -1,13 +1,11 @@
 version: '3'
 name: api-mit-auth-nest
 services:
-  redis:
-    image: redis
-  mysql:
-    image: mysql
-    restart: always
-    environment:
-      - MYSQL_DATABASE=db
-      - MYSQL_ROOT_PASSWORD=root
+  postgres:
+    image: bitnami/postgresql
     ports:
-      - '3306:3306'
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=api-mit-auth-nest

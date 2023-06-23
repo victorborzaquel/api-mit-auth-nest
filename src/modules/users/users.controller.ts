@@ -17,6 +17,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { JoiValidationPipe } from 'src/pipes/joi-validation/joi-validation.pipe';
 import Joi from 'joi';
+import { User } from './entities/user.entity';
 
 const createCatSchema = Joi.object({
   name: Joi.string().required(),
@@ -37,7 +38,7 @@ export class UsersController {
 
   @UsePipes(new JoiValidationPipe(createCatSchema))
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto): User {
     return this.usersService.create(createUserDto);
   }
 
